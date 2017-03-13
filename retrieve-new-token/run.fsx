@@ -16,8 +16,13 @@ type BodyPostTokenRequest = JsonProvider<bodySample>
 let Run(myTimer: TimerInfo, log: TraceWriter) =
     let appSettings = ConfigurationManager.AppSettings 
     let url = appSettings.["TokenUrl"]
-    let postInformation = "grant_type="
-                        + appSettings.["GrantType"] + "&client_id=" + appSettings.["ClientId"] + "&client_secret=" + appSettings.["ClientSecret"] + "&resource=" + appSettings.["RessourceUrl"] + "&username=" + appSettings.["Username"] + "&password=" + appSettings.["Password"] + "&scope=" + appSettings.["Scope"]
+    let postInformation = "grant_type=" + appSettings.["GrantType"]
+                        + "&client_id=" + appSettings.["ClientId"]
+                        + "&client_secret=" + appSettings.["ClientSecret"]
+                        + "&resource=" + appSettings.["RessourceUrl"]
+                        + "&username=" + appSettings.["Account"]
+                        + "&password=" + appSettings.["Password"]
+                        + "&scope=" + appSettings.["Scope"]
 
     log.Info(sprintf "Message sent: %s" postInformation)
 
