@@ -1,13 +1,16 @@
 
 #if !COMPILED
 #r "../packages/FSharp.Data.dll"
+#r "../packages/Microsoft.Azure.WebJobs.Host.dll"
+#r "../packages/Microsoft.Azure.WebJobs.Extensions.dll"
 #endif
 
 open System
 open System.Configuration
 open FSharp.Data
 open FSharp.Data.HttpRequestHeaders
-
+open Microsoft.Azure.WebJobs.Host
+open Microsoft.Azure.WebJobs
 
 [<Literal>]
 let bodySample = """{"token_type":"Bearer","scope":"Calendars.Read","expires_in":"3599","ext_expires_in":"0","expires_on":"1489416293","not_before":"1489412393","resource":"https://graph.microsoft.com","access_token":"ey_-9Nv_","refresh_token":"AQ-0_"}"""
