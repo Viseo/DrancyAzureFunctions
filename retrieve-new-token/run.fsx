@@ -1,6 +1,8 @@
 open System
 open System.Configuration
 open FSharp.Data
+open FSharp.Data.HttpRequestHeaders
+
 
 [<Literal>]
 let bodySample = """{"token_type":"Bearer","scope":"Calendars.Read","expires_in":"3599","ext_expires_in":"0","expires_on":"1489416293","not_before":"1489412393","resource":"https://graph.microsoft.com","access_token":"ey_-9Nv_","refresh_token":"AQ-0_"}"""
@@ -17,8 +19,8 @@ let Run(myTimer: TimerInfo, log: TraceWriter) =
                    "&password=" + appSettings.["Password"] +
                    "&scope=" + appSettings.["Scope"]
 
-    log.Info(sprintf "Message sent: %s" postData)
+    log.Info(sprintf "Message sent: %s" postInformation)
 
     let bodyResult = Http.RequestString(url, headers = [ ContentType HttpContentTypes.FormValues ], body = TextRequest postInformation)
 
-    log.Info(sprintf "token: %s" result.AccessToken)
+    log.Info(sprintf "token: %s" bodyResult.AccessToken)
