@@ -1,3 +1,8 @@
+
+#if !COMPILED
+#r "../packages/FSharp.Data.dll"
+#endif
+
 open System
 open System.Configuration
 open FSharp.Data
@@ -11,16 +16,11 @@ type BodyPostTokenRequest = JsonProvider<bodySample>
 let Run(myTimer: TimerInfo, log: TraceWriter) =
     let appSettings = ConfigurationManager.AppSettings 
     let url = appSettings.["TokenUrl"]
-    let postInformation = "grant_type=" + appSettings.["GrantType"] +
-                   "&client_id=" + appSettings.["ClientId"] +
-                   "&client_secret=" + appSettings.["ClientSecret"] +
-                   "&resource=" + appSettings.["RessourceUrl"] +
-                   "&username=" + appSettings.["Username"] +
-                   "&password=" + appSettings.["Password"] +
-                   "&scope=" + appSettings.["Scope"]
+    let postInformation = "grant_type="
+                        + appSettings.["GrantType"] + "&client_id=" + appSettings.["ClientId"] + "&client_secret=" + appSettings.["ClientSecret"] + "&resource=" + appSettings.["RessourceUrl"] + "&username=" + appSettings.["Username"] + "&password=" + appSettings.["Password"] + "&scope=" + appSettings.["Scope"]
 
     log.Info(sprintf "Message sent: %s" postInformation)
 
-    let bodyResult = Http.RequestString(url, headers = [ ContentType HttpContentTypes.FormValues ], body = TextRequest postInformation)
-
-    log.Info(sprintf "token: %s" bodyResult.AccessToken)
+    let body = Http.RequestString(url, headers = [ ContentType HttpContentTypes.FormValues ], body = TextRequest postInformation) |> BodyPostTokenRequest.Parse  
+    
+    log.Info(sprintf "token: %s" body.AccessToken)
