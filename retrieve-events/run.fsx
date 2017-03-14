@@ -1,6 +1,9 @@
-open System
 
-let Run(myTimer: TimerInfo, log: TraceWriter) =
-    log.Info(
-        sprintf "F# Timer trigger function executed at: %s" 
-            (DateTime.Now.ToString()))
+#if !COMPILED
+#r "../packages/Microsoft.Azure.WebJobs.Host.dll"
+#endif
+
+open Microsoft.Azure.WebJobs.Host
+
+let Run(token: string, log: TraceWriter) =
+    log.Info(sprintf "F# Queue trigger function processed: '%s'" token)

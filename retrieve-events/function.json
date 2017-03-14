@@ -1,11 +1,12 @@
 {
-  "disabled": true,
+  "disabled": false,
   "bindings": [
     {
-      "name": "myTimer",
-      "type": "timerTrigger",
+      "name": "token",
+      "type": "queueTrigger",
       "direction": "in",
-      "schedule": "*/5 6-23 * * * *"
+      "queueName": "last-access-token",
+      "connection": "drancyplaylist_STORAGE"
     }
   ]
 }
