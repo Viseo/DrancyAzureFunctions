@@ -6,7 +6,7 @@
       "type": "queueTrigger",
       "direction": "in",
       "queueName": "last-access-token",
-      "connection": "drancyplaylist_STORAGE"
+      "connection": "drancyplayliststorage"
     }
   ]
 }
