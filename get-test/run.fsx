@@ -3,11 +3,20 @@
 open System.Linq
 open System.Net
 open System.Net.Http
+open System.Net.Http.Headers
 open System.IO
 
 [<Literal>]
-let sampleRate = __SOURCE_DIRECTORY__ + "/playlistSample.json"
+let playlistSample = __SOURCE_DIRECTORY__ + "/playlistSample.json"
+
+let createResponse data =
+    let response = new HttpResponseMessage()
+    response.Content <- new StringContent(data)
+    response.StatusCode <- HttpStatusCode.OK
+    response.Content.Headers.ContentType <- MediaTypeHeaderValue("application/json")
+    response
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
-    let content = File.ReadAllText(sampleRate)
-    req.CreateResponse(HttpStatusCode.OK, content)
+    File.ReadAllText(playlistSample) |> createResponse
+
+    //req.CreateResponse(HttpStatusCode.OK, content)
