@@ -19,7 +19,7 @@ let bodySample = """{"token_type":"Bearer","scope":"Calendars.Read","expires_in"
 type OAuth2Token = JsonProvider<bodySample>
 
 [<Literal>]
-let tokenFile = __SOURCE_DIRECTORY__ + "../get-test/tokenFile.txt"
+let tokenFile = __SOURCE_DIRECTORY__ + "./../get-test/tokenFile.txt"
 
 let Run(myTimer: TimerInfo, tokenQueue: byref<string>, log: TraceWriter) =
     let appSettings = ConfigurationManager.AppSettings 
