@@ -45,9 +45,7 @@ let getPlaylistFromCalendar token (log: TraceWriter) =
     File.ReadAllText(playlistSample)
 
 let getPlaylist (log: TraceWriter) =
-    let token = File.ReadAllText(playlistSample)
-    log.Info(sprintf "token: %s" token)
-    match token with
+    match File.ReadAllText(tokenFile) with
     | "null" -> File.ReadAllText(playlistSample)
     | token -> getPlaylistFromCalendar token log
 
