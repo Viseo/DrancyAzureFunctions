@@ -22,77 +22,7 @@ open Microsoft.Azure.WebJobs
 let playlistSample = __SOURCE_DIRECTORY__ + "/playlist.json"
 
 [<Literal>]
-let CalendarSample = """{
-  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users('bbe1')/calendar/calendarView",
-  "value": [
-    {
-      "@odata.etag": "W/\"CTRAAAAe0Q==\"",
-      "id": "AAMkAABzCAAA=",
-      "createdDateTime": "2017-03-13T09:55:37.4440925Z",
-      "lastModifiedDateTime": "2017-03-13T09:55:37.6628482Z",
-      "changeKey": "CTRo1luAAAAAe0Q==",
-      "categories": [],
-      "originalStartTimeZone": "Pacific Standard Time",
-      "originalEndTimeZone": "Pacific Standard Time",
-      "iCalUId": "0400087C",
-      "reminderMinutesBeforeStart": 15,
-      "isReminderOn": true,
-      "hasAttachments": false,
-      "subject": "Test video and invited other account",
-      "bodyPreview": "",
-      "importance": "normal",
-      "sensitivity": "normal",
-      "isAllDay": false,
-      "isCancelled": false,
-      "isOrganizer": true,
-      "responseRequested": true,
-      "seriesMasterId": null,
-      "showAs": "busy",
-      "type": "singleInstance",
-      "webLink": "https://outlook.office365.com",
-      "onlineMeetingUrl": null,
-      "responseStatus": {
-        "response": "organizer",
-        "time": "0001-01-01T00:00:00Z"
-      },
-      "body": {
-        "contentType": "html",
-        "content": "<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n<meta content=\"text/html; charset=us-ascii\">\r\n<style type=\"text/css\" style=\"display:none\">\r\n<!--\r\np\r\n\t{margin-top:0;\r\n\tmargin-bottom:0}\r\n-->\r\n</style>\r\n</head>\r\n<body dir=\"ltr\"></body>\r\n</html>\r\n"
-      },
-      "start": {
-        "dateTime": "2017-03-14T10:00:00.0000000",
-        "timeZone": "UTC"
-      },
-      "end": {
-        "dateTime": "2017-03-14T12:00:00.0000000",
-        "timeZone": "UTC"
-      },
-      "location": {
-        "displayName": "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"
-      },
-      "recurrence": null,
-      "attendees": [
-        {
-          "type": "required",
-          "status": {
-            "response": "none",
-            "time": "0001-01-01T00:00:00Z"
-          },
-          "emailAddress": {
-            "name": "EcranTv",
-            "address": "lala@xxx.fr"
-          }
-        }
-      ],
-      "organizer": {
-        "emailAddress": {
-          "name": "test",
-          "address": "lala@xxx.fr"
-        }
-      }
-    }
-  ]
-}"""
+let CalendarSample = """{"@odata.context":"https://graph.microsoft.com/v1.0/$metadata#users('bbe1')/calendar/calendarView","value":[{"@odata.etag":"W/\"CTRAAAAe0Q==\"","id":"AAMkAABzCAAA=","createdDateTime":"2017-03-13T09:55:37.4440925Z","lastModifiedDateTime":"2017-03-13T09:55:37.6628482Z","changeKey":"CTRo1luAAAAAe0Q==","categories":[],"originalStartTimeZone":"Pacific Standard Time","originalEndTimeZone":"Pacific Standard Time","iCalUId":"0400087C","reminderMinutesBeforeStart":15,"isReminderOn":true,"hasAttachments":false,"subject":"Test video and invited other account","bodyPreview":"","importance":"normal","sensitivity":"normal","isAllDay":false,"isCancelled":false,"isOrganizer":true,"responseRequested":true,"seriesMasterId":null,"showAs":"busy","type":"singleInstance","webLink":"https://outlook.office365.com","onlineMeetingUrl":null,"responseStatus":{"response":"organizer","time":"0001-01-01T00:00:00Z"},"body":{"contentType":"html","content":"<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n<meta content=\"text/html; charset=us-ascii\">\r\n<style type=\"text/css\" style=\"display:none\">\r\n<!--\r\np\r\n\t{margin-top:0;\r\n\tmargin-bottom:0}\r\n-->\r\n</style>\r\n</head>\r\n<body dir=\"ltr\"></body>\r\n</html>\r\n"},"start":{"dateTime":"2017-03-14T10:00:00.0000000","timeZone":"UTC"},"end":{"dateTime":"2017-03-14T12:00:00.0000000","timeZone":"UTC"},"location":{"displayName":"http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"},"recurrence":null,"attendees":[{"type":"required","status":{"response":"none","time":"0001-01-01T00:00:00Z"},"emailAddress":{"name":"EcranTv","address":"lala@xxx.fr"}}],"organizer":{"emailAddress":{"name":"test","address":"lala@xxx.fr"}}}]}"""
 type OfficeCalendar = JsonProvider<CalendarSample>
 
 [<Literal>]
