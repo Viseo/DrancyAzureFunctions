@@ -7,6 +7,7 @@
 #endif
 
 open System
+open System.IO
 open System.Configuration
 open FSharp.Data
 open FSharp.Data.HttpRequestHeaders
@@ -16,6 +17,9 @@ open Microsoft.Azure.WebJobs
 [<Literal>]
 let bodySample = """{"token_type":"Bearer","scope":"Calendars.Read","expires_in":"3599","ext_expires_in":"0","expires_on":"1489416293","not_before":"1489412393","resource":"https://graph.microsoft.com","access_token":"ey_-9Nv_","refresh_token":"AQ-0_"}"""
 type OAuth2Token = JsonProvider<bodySample>
+
+[<Literal>]
+let tokenFile = __SOURCE_DIRECTORY__ + "../get-test/tokenFile.txt"
 
 let Run(myTimer: TimerInfo, tokenQueue: byref<string>, log: TraceWriter) =
     let appSettings = ConfigurationManager.AppSettings 
@@ -28,8 +32,7 @@ let Run(myTimer: TimerInfo, tokenQueue: byref<string>, log: TraceWriter) =
                         + "&password=" + appSettings.["Password"]
                         + "&scope=" + appSettings.["Scope"]
 
-    log.Info(sprintf "Message sent: %s" postInformation)
-
     let token = Http.RequestString(url, headers = [ ContentType HttpContentTypes.FormValues ], body = TextRequest postInformation) |> OAuth2Token.Parse  
-    tokenQueue <- token.AccessToken
+    File.WriteAllText(tokenFile, token.AccessToken)
     log.Info(sprintf "token: %s" token.AccessToken)
+    token.AccessToken
