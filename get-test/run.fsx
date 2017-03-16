@@ -35,7 +35,7 @@ let createResponse data =
     response.Content.Headers.ContentType <- MediaTypeHeaderValue("application/json")
     response
 
-let createPlaylist name playlists =
+let createPlaylist name (playlists: OfficeCalendar.Root) =
     let events = playlists.Value |> Seq.filter (fun event -> event.Organizer.EmailAddress.Address = name || (event.Attendees |> Seq.exists (fun a -> a.EmailAddress.Address = name)))
                             |> Seq.map (fun event -> "{" + "UniqueId = " + event.Id + ", Content = " + event.Location.DisplayName + "}")
                             |> String.concat ","
