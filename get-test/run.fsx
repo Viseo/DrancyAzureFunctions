@@ -19,10 +19,10 @@ open Microsoft.Azure.WebJobs.Host
 open Microsoft.Azure.WebJobs
 
 [<Literal>]
-let playlistSample = __SOURCE_DIRECTORY__ + "/Sample/playlist.json"
+let playlistSample = __SOURCE_DIRECTORY__ + "/playlist.json"
 
 [<Literal>]
-let calendarSample = __SOURCE_DIRECTORY__ + "/Sample/calendar.json"
+let calendarSample = __SOURCE_DIRECTORY__ + "/calendar.json"
 type OfficeCalendar = JsonProvider<calendarSample>
 
 [<Literal>]
@@ -47,7 +47,6 @@ let getPlaylistFromCalendar name token (log: TraceWriter) =
     let playlists = Http.RequestString(url, headers = [ "Authorization", "Bearer " + token])
     log.Info(sprintf "playlists: %s" playlists)
     playlists |> OfficeCalendar.Parse |> createPlaylist name
-    //File.ReadAllText(playlistSample)
 
 let getPlaylist name (log: TraceWriter) =
     match File.ReadAllText(tokenFile) with
