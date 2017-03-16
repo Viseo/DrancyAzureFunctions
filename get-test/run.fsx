@@ -123,5 +123,5 @@ let getPlaylist name (log: TraceWriter) =
     | "null" -> File.ReadAllText(playlistSample)
     | token -> getPlaylistFromCalendar name token log
 
-let Run(req: HttpRequestMessage, name: string, log: TraceWriter) =
-    getPlaylist name log |> createResponse
+let Run(req: HttpRequestMessage, log: TraceWriter) =
+    getPlaylist "test" log |> createResponse
