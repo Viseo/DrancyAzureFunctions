@@ -19,7 +19,7 @@ open Microsoft.Azure.WebJobs.Host
 open Microsoft.Azure.WebJobs
 
 [<Literal>]
-let playlistSample = __SOURCE_DIRECTORY__ + "/Sample/playlistSample.json"
+let playlistSample = __SOURCE_DIRECTORY__ + "/Sample/playlist.json"
 
 [<Literal>]
 let calendarSample = __SOURCE_DIRECTORY__ + "/Sample/calendar.json"
