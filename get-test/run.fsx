@@ -35,23 +35,23 @@ let createResponse data =
     response.Content.Headers.ContentType <- MediaTypeHeaderValue("application/json")
     response
 
-let createPlaylist name (playlists: OfficeCalendar.Root) =
-    let events = playlists.Value |> Seq.filter (fun event -> event.Organizer.EmailAddress.Address = name || (event.Attendees |> Seq.exists (fun a -> a.EmailAddress.Address = name)))
+let createPlaylist screenMail (playlists: OfficeCalendar.Root) =
+    let events = playlists.Value |> Seq.filter (fun event -> event.Organizer.EmailAddress.Address = screenMail || (event.Attendees |> Seq.exists (fun a -> a.EmailAddress.Address = screenMail)))
                             |> Seq.map (fun event -> "{" + "UniqueId = " + event.Id + ", Content = " + event.Location.DisplayName + "}")
                             |> String.concat ","
     """{"Groups":[{"UniqueId":"audio_video_picture","Title":"Universal Media Player Tests","Category":"Windows 10 Universal Media Player Tests","ImagePath": "ms-appx:///Assets/AudioVideo.png","Description":"Windows 10 Universal Media Player Tests","Items": [""" + events + "]}]}"
 
-let getPlaylistFromCalendar name token (log: TraceWriter) =
+let getPlaylistFromCalendar screenMail token (log: TraceWriter) =
     let now = DateTime.Now
     let url = "https://graph.microsoft.com/v1.0/me/calendar/calendarView?startDateTime=" + now.ToString("yyyy-MM-ddTHH:mm:ss.fffffff") + "&endDateTime=" + now.AddSeconds(1.).ToString("yyyy-MM-ddTHH:mm:ss.fffffff")
     let playlists = Http.RequestString(url, headers = [ "Authorization", "Bearer " + token])
     log.Info(sprintf "playlists: %s" playlists)
-    playlists |> OfficeCalendar.Parse |> createPlaylist name
+    playlists |> OfficeCalendar.Parse |> createPlaylist screenMail
 
-let getPlaylist name (log: TraceWriter) =
+let getPlaylist screenMail (log: TraceWriter) =
     match File.ReadAllText(tokenFile) with
     | "null" -> File.ReadAllText(playlistSample)
-    | token -> getPlaylistFromCalendar name token log
+    | token -> getPlaylistFromCalendar screenMail token log
 
-let Run(req: HttpRequestMessage, log: TraceWriter) =
-    getPlaylist "test" log |> createResponse
+let Run(req: HttpRequestMessage, screenMail: string, log: TraceWriter) =
+    getPlaylist screenMail log |> createResponse
