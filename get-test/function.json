@@ -7,7 +7,7 @@
       "methods": [
         "get"
       ],
-      "route": "names/{screenMail:alpha}"
+      "route": "names/{screenMail}"
     },
     {
       "type": "http",
