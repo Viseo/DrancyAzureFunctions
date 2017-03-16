@@ -38,12 +38,15 @@ let createResponse data =
 let getPlaylistFromCalendar token (log: TraceWriter) =
     let now = DateTime.Now
     let url = "https://graph.microsoft.com/v1.0/me/calendar/calendarView?startDateTime=" + now.ToString("o") + "&endDateTime=" + now.AddSeconds(1.).ToString("o")
+    log.Info(sprintf "playlists: %s" url)
     let playlists = Http.RequestString(url, headers = [ "Authorization", "Bearer " + token])
     log.Info(sprintf "playlists: %s" playlists)
     File.ReadAllText(playlistSample)
 
 let getPlaylist (log: TraceWriter) =
-    match File.ReadAllText(playlistSample) with
+    let token = File.ReadAllText(playlistSample)
+    log.Info(sprintf "token: %s" token)
+    match token with
     | "null" -> File.ReadAllText(playlistSample)
     | token -> getPlaylistFromCalendar token log
 
