@@ -6,7 +6,8 @@
       "name": "req",
       "methods": [
         "get"
-      ]
+      ],
+      "route": "users/{name:alpha}"
     },
     {
       "type": "http",

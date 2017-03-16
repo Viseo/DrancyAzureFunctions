@@ -1,0 +1,15 @@
+{
+  "UniqueId": "XXX",
+  "Comment": "comment",
+  "Title": "title",
+  "ImagePath": "ms-appx:///Assets/SMOOTH.png",
+  "Description": "description",
+  "Content": "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4",
+  "PosterContent": "",
+  "Start": "0",
+  "Duration": "0",
+  "HttpHeaders": "",
+  "PlayReadyUrl": "",
+  "PlayReadyCustomData": "null",
+  "BackgroundAudio": false
+}
