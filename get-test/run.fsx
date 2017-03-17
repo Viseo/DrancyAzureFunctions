@@ -53,5 +53,5 @@ let getPlaylist screenMail (log: TraceWriter) =
     | "null" -> File.ReadAllText(playlistSample)
     | token -> getPlaylistFromCalendar screenMail token log
 
-let Run(req: HttpRequestMessage, screenMail: string, log: TraceWriter) =
-    getPlaylist screenMail log |> createResponse
+let Run(req: HttpRequestMessage, log: TraceWriter) =
+    getPlaylist "test" log |> createResponse
