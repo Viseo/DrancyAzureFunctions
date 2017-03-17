@@ -2,6 +2,8 @@
 #r "../packages/FSharp.Data.dll"
 #r "../packages/Microsoft.Azure.WebJobs.Host.dll"
 #r "../packages/Microsoft.Azure.WebJobs.Extensions.dll"
+#r "../packages/FSharp.Interop.Dynamic.dll"
+#r "../packages/Dynamitey.dll"
 #endif
 
 #r "System.Net.Http"
@@ -14,6 +16,8 @@ open System.Net.Http.Headers
 open System.IO
 open FSharp.Data
 open FSharp.Data.HttpRequestHeaders
+open FSharp.Interop.Dynamic
+open Dynamitey
 
 open Microsoft.Azure.WebJobs.Host
 open Microsoft.Azure.WebJobs
@@ -54,4 +58,8 @@ let getPlaylist screenMail (log: TraceWriter) =
     | token -> getPlaylistFromCalendar screenMail token log
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
+    let screenName = req.GetQueryNameValuePairs() |> Seq.tryFind (fun key -> key.Key = "screenName")
+    match screenName with
+    | Some value -> log.Info(sprintf "screenName: %s" value)
+    | None -> log.Info("Noooooo")
     getPlaylist "test" log |> createResponse
