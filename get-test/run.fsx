@@ -41,7 +41,7 @@ let createResponse data =
 
 let createPlaylist screenMail (log: TraceWriter) (playlists: OfficeCalendar.Root) =
     let events = playlists.Value |> Seq.filter (fun event -> event.Organizer.EmailAddress.Address = screenMail || (event.Attendees |> Seq.exists (fun a -> a.EmailAddress.Address = screenMail)))
-                            |> Seq.map (fun event -> "{" + "UniqueId = " + event.Id + ", Content = " + event.Location.DisplayName + "}")
+                            |> Seq.map (fun event -> "{" + "\"UniqueId\"=\"" + event.Id + "\", \"Content\"=\"" + event.Location.DisplayName + "\"}")
                             |> String.concat ","
     log.Info(sprintf "events: %s" events)
     """{"Groups":[{"UniqueId":"audio_video_picture","Title":"Universal Media Player Tests","Category":"Windows 10 Universal Media Player Tests","ImagePath": "ms-appx:///Assets/AudioVideo.png","Description":"Windows 10 Universal Media Player Tests","Items": [""" + events + "]}]}"
