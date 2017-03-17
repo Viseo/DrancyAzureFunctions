@@ -58,8 +58,8 @@ let getPlaylist screenMail (log: TraceWriter) =
     | token -> getPlaylistFromCalendar screenMail token log
 
 let Run(req: HttpRequestMessage, log: TraceWriter) =
-    let screenName = req.GetQueryNameValuePairs() |> Seq.tryFind (fun key -> key.Key = "screenName")
+    let screenName = req.GetQueryNameValuePairs() |> Seq.tryFind (fun kv -> kv.Key = "screenName")
     match screenName with
-    | Some value -> log.Info(sprintf "screenName: %s" value)
+    | Some key -> log.Info(sprintf "screenName: %s" key.value)
     | None -> log.Info("Noooooo")
     getPlaylist "test" log |> createResponse
