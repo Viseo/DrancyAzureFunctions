@@ -39,10 +39,11 @@ let createResponse data =
     response.Content.Headers.ContentType <- MediaTypeHeaderValue("application/json")
     response
 
-let createPlaylist screenMail (playlists: OfficeCalendar.Root) =
+let createPlaylist screenMail (log: TraceWriter) (playlists: OfficeCalendar.Root) =
     let events = playlists.Value |> Seq.filter (fun event -> event.Organizer.EmailAddress.Address = screenMail || (event.Attendees |> Seq.exists (fun a -> a.EmailAddress.Address = screenMail)))
                             |> Seq.map (fun event -> "{" + "UniqueId = " + event.Id + ", Content = " + event.Location.DisplayName + "}")
                             |> String.concat ","
+    log.Info(sprintf "events: %s" events)
     """{"Groups":[{"UniqueId":"audio_video_picture","Title":"Universal Media Player Tests","Category":"Windows 10 Universal Media Player Tests","ImagePath": "ms-appx:///Assets/AudioVideo.png","Description":"Windows 10 Universal Media Player Tests","Items": [""" + events + "]}]}"
 
 let getPlaylistFromCalendar screenMail token (log: TraceWriter) =
@@ -51,7 +52,7 @@ let getPlaylistFromCalendar screenMail token (log: TraceWriter) =
     let url = "https://graph.microsoft.com/v1.0/me/calendar/calendarView?startDateTime=" + now.ToString("yyyy-MM-ddTHH:mm:ss.fffffff") + "&endDateTime=" + now.AddSeconds(1.).ToString("yyyy-MM-ddTHH:mm:ss.fffffff")
     let playlists = Http.RequestString(url, headers = [ "Authorization", "Bearer " + token])
     log.Info(sprintf "playlists: %s" playlists)
-    playlists |> OfficeCalendar.Parse |> createPlaylist screenMail
+    playlists |> OfficeCalendar.Parse |> createPlaylist screenMail log
 
 let getPlaylist screenMail (log: TraceWriter) =
     log.Info(sprintf "screenMail: %s" screenMail)
