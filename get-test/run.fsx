@@ -46,6 +46,7 @@ let createPlaylist screenMail (playlists: OfficeCalendar.Root) =
     """{"Groups":[{"UniqueId":"audio_video_picture","Title":"Universal Media Player Tests","Category":"Windows 10 Universal Media Player Tests","ImagePath": "ms-appx:///Assets/AudioVideo.png","Description":"Windows 10 Universal Media Player Tests","Items": [""" + events + "]}]}"
 
 let getPlaylistFromCalendar screenMail token (log: TraceWriter) =
+    log.Info("token valid")
     let now = DateTime.Now
     let url = "https://graph.microsoft.com/v1.0/me/calendar/calendarView?startDateTime=" + now.ToString("yyyy-MM-ddTHH:mm:ss.fffffff") + "&endDateTime=" + now.AddSeconds(1.).ToString("yyyy-MM-ddTHH:mm:ss.fffffff")
     let playlists = Http.RequestString(url, headers = [ "Authorization", "Bearer " + token])
@@ -53,6 +54,7 @@ let getPlaylistFromCalendar screenMail token (log: TraceWriter) =
     playlists |> OfficeCalendar.Parse |> createPlaylist screenMail
 
 let getPlaylist screenMail (log: TraceWriter) =
+    log.Info(sprintf "screenMail: %s" screenMail)
     match File.ReadAllText(tokenFile) with
     | "null" -> File.ReadAllText(playlistSample)
     | token -> getPlaylistFromCalendar screenMail token log
