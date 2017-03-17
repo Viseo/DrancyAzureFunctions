@@ -60,6 +60,6 @@ let getPlaylist screenMail (log: TraceWriter) =
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     let screenName = req.GetQueryNameValuePairs() |> Seq.tryFind (fun kv -> kv.Key = "screenName")
     match screenName with
-    | Some key -> log.Info(sprintf "screenName: %s" key.value)
+    | Some key -> log.Info(sprintf "screenName: %s" key.Value)
     | None -> log.Info("Noooooo")
     getPlaylist "test" log |> createResponse
