@@ -62,6 +62,7 @@ let getPlaylist screenMail (log: TraceWriter) =
     | "null" -> File.ReadAllText(playlistSample)
     | token -> getPlaylistFromCalendar screenMail token log
 
+
 let Run(req: HttpRequestMessage, log: TraceWriter) =
     let screenName = req.GetQueryNameValuePairs() |> Seq.tryFind (fun kv -> kv.Key = "screenName")
     //logClientCalls screenName
