@@ -1,6 +1,6 @@
 #if !COMPILED
-#r "../packages/FSharp.Data.DesignTime.dll"
 #r "../packages/FSharp.Data.dll"
+#r "../packages/FSharp.Data.DesignTime.dll"
 #r "../packages/Microsoft.Azure.WebJobs.Host.dll"
 #r "../packages/Microsoft.Azure.WebJobs.Extensions.dll"
 #r "../packages/FSharp.Interop.Dynamic.dll"
