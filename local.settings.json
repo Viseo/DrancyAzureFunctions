@@ -1,0 +1,6 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=drancyplaylistprod;AccountKey=FH9eMMZ7jsMnKKWdjE+nmiDWlue3PkFxVpSBcMCNTfF7VWi1/cTj2Ezi7fN4EUg7e8VLGuzfdiFG2fjfD81tzQ=="
+  }
+}

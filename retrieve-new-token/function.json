@@ -13,6 +13,13 @@
       "direction": "out",
       "queueName": "last-access-token",
       "connection": "drancyplaylist_STORAGE"
+    },
+    {
+      "name": "DrancyClientCalls",
+      "type": "table",
+      "direction": "in",
+      "queueName": "DrancyClientsCalls",
+      "connection": "DrancyClientsCallsBlobStorage"
     }
   ]
 }
